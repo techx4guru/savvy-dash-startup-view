@@ -1,4 +1,3 @@
-
 import { 
   TrendingUp, 
   Users, 
@@ -20,7 +19,7 @@ export const MainDashboard = () => {
       title: "Monthly Recurring Revenue",
       value: "$45,231",
       change: "+20.1%",
-      trend: "up",
+      trend: "up" as const,
       icon: DollarSign,
       description: "vs last month"
     },
@@ -28,7 +27,7 @@ export const MainDashboard = () => {
       title: "Active Users",
       value: "2,350",
       change: "+15.3%",
-      trend: "up",
+      trend: "up" as const,
       icon: Users,
       description: "vs last month"
     },
@@ -36,7 +35,7 @@ export const MainDashboard = () => {
       title: "Churn Rate",
       value: "2.4%",
       change: "-0.8%",
-      trend: "down",
+      trend: "down" as const,
       icon: UserMinus,
       description: "vs last month"
     },
@@ -44,7 +43,7 @@ export const MainDashboard = () => {
       title: "Conversion Rate",
       value: "3.2%",
       change: "+0.5%",
-      trend: "up",
+      trend: "up" as const,
       icon: TrendingUp,
       description: "vs last month"
     },

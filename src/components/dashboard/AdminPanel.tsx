@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -195,7 +194,7 @@ export const AdminPanel = () => {
                         <Badge>Admin</Badge>
                       </TableCell>
                       <TableCell>
-                        <Badge variant="success">Active</Badge>
+                        <Badge variant="secondary" className="bg-green-100 text-green-800">Active</Badge>
                       </TableCell>
                       <TableCell>
                         <div className="flex space-x-2">
