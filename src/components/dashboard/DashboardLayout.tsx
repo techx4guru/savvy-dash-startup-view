@@ -25,7 +25,9 @@ export const DashboardLayout = ({ children, activeTab, setActiveTab }: Dashboard
         <div className="flex-1 flex flex-col min-w-0">
           <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
           <main className="flex-1 p-3 sm:p-4 lg:p-6 overflow-auto">
-            {children}
+            <div className="max-w-full">
+              {children}
+            </div>
           </main>
         </div>
       </div>

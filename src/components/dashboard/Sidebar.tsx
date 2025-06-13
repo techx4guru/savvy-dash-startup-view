@@ -51,10 +51,8 @@ export const Sidebar = ({ activeTab, setActiveTab, isOpen, setIsOpen }: SidebarP
 
   const handleNavClick = (tabId: string) => {
     setActiveTab(tabId);
-    // Close sidebar on mobile after navigation
-    if (window.innerWidth < 1024) {
-      setIsOpen(false);
-    }
+    // Don't automatically close sidebar on mobile - let user see the content
+    // They can manually close it using the X button or clicking outside
   };
 
   return (
