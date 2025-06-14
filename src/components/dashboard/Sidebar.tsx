@@ -22,6 +22,8 @@ interface SidebarProps {
   setIsOpen: (open: boolean) => void;
 }
 
+
+
 const navigation = [
   { id: "dashboard", label: "Dashboard", icon: Home },
   { id: "analytics", label: "Analytics", icon: BarChart3 },
@@ -35,25 +37,21 @@ const navigation = [
 export const Sidebar = ({ activeTab, setActiveTab, isOpen, setIsOpen }: SidebarProps) => {
   // Close sidebar on mobile when clicking outside or on route change
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 1024 && !isOpen) {
-        setIsOpen(true);
-      }
-      if (window.innerWidth < 1024 && isOpen) {
-        setIsOpen(false);
-      }
-    };
+  // Only set sidebar open state on *first render* depending on screen size
+  const shouldBeOpen = window.innerWidth >= 1024;
+  setIsOpen(shouldBeOpen);
+  // Only run on mount ([]) so it doesn’t fight user toggles
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
 
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [isOpen, setIsOpen]);
 
   const handleNavClick = (tabId: string) => {
-    setActiveTab(tabId);
-    // Don't automatically close sidebar on mobile - let user see the content
-    // They can manually close it using the X button or clicking outside
-  };
+  setActiveTab(tabId);
+  if (window.innerWidth < 1024) {
+    setIsOpen(false); // Auto-close on mobile
+  }
+};
+
 
   return (
     <>
@@ -65,11 +63,15 @@ export const Sidebar = ({ activeTab, setActiveTab, isOpen, setIsOpen }: SidebarP
         />
       )}
 
-      <div className={cn(
-        "fixed left-0 top-0 h-full bg-card border-r border-border transition-all duration-300 z-50",
-        "lg:relative lg:translate-x-0",
-        isOpen ? "translate-x-0 w-64" : "-translate-x-full lg:translate-x-0 lg:w-16"
-      )}>
+      <div
+  className={cn(
+    "fixed left-0 top-0 h-full bg-card border-r border-border transition-all duration-300 z-50",
+    "lg:relative lg:translate-x-0",
+    isOpen ? "translate-x-0 w-64" : "-translate-x-full lg:translate-x-0 lg:w-16"
+  )}
+  onClick={(e) => e.stopPropagation()} // 👈 Prevent closing on click inside
+>
+
         <div className="flex items-center justify-between p-4 border-b border-border min-h-[3.5rem] sm:min-h-[4rem]">
           {isOpen && (
             <div className="flex items-center space-x-2">
@@ -118,3 +120,4 @@ export const Sidebar = ({ activeTab, setActiveTab, isOpen, setIsOpen }: SidebarP
     </>
   );
 };
+
